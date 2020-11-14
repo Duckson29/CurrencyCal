@@ -1,0 +1,3 @@
+include ':app:firstdaolib'
+include ':app'
+rootProject.name = "CurrencyCal"
