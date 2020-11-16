@@ -1,11 +1,18 @@
 package dk.ducksoft.firstdaolib;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
+
+import java.util.Random;
 
 /**
  * Fixer.io.
@@ -189,14 +196,16 @@ import org.json.JSONObject;
  *   }
  * }
  * */
-public class WebDataController {
+public class WebDataController extends Activity{
 
     public String dataJson;
+
     public void Something(){
         String url = "https://jsonplaceholder.typicode.com/todos/1";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, response -> dataJson = response.toString(), new Response.ErrorListener() {
+                (Request.Method.GET, url, null, response -> dataJson = response.toString(),
+                        new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -204,10 +213,11 @@ public class WebDataController {
 
                     }
                 });
+        Request<JSONObject> s = Volley.newRequestQueue(this).add(jsonObjectRequest);
 
     }
 
     public WebDataController() {
-        dataJson = "Nothing yet";
+        dataJson = "Nothing yet" + new Random().nextInt();
     }
 }

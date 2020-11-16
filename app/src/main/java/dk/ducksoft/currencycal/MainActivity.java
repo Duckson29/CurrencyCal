@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
     private MainPresenter mainPresenter;
     private ActivityMainBinding  binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +18,5 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         mainPresenter = new MainPresenter(this);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         binding.setPreset(mainPresenter);
-        mainPresenter.getData().add(mainPresenter.getCurrencyRate("asd"));
-        mainPresenter.getData().add("asd");
     }
 }
