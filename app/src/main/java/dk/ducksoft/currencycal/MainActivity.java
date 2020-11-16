@@ -1,12 +1,18 @@
 package dk.ducksoft.currencycal;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;;
 import android.os.Bundle;
 
 import dk.ducksoft.currencycal.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MvpView{
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private MainPresenter mainPresenter;
     private ActivityMainBinding  binding;
@@ -18,5 +24,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         mainPresenter = new MainPresenter(this);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         binding.setPreset(mainPresenter);
+
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new RecyclerViewAdapterClass(mainPresenter.getData());
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }
