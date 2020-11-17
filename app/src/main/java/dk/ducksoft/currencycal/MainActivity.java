@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import dk.ducksoft.currencycal.databinding.ActivityMainBinding;
 
@@ -21,10 +22,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /**
+        * Bulidfeature {databinding = true} xml bindging.
+        * */
         mainPresenter = new MainPresenter(this);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         binding.setPreset(mainPresenter);
-
+        /**
+         * Apadater patten(MVP)
+         * */
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(this);

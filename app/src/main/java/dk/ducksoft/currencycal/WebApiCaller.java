@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +15,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import dk.ducksoft.currencycal.Models.CurrencyRate;
 
 /**
  * Fixer.io.
@@ -202,7 +207,7 @@ public class WebApiCaller  {
 
 
     private ArrayList<OnJsonRespon> listeners = new ArrayList<OnJsonRespon>();
-
+    private ArrayList<CurrencyRate> rates = new ArrayList<>();
     public void addListener(OnJsonRespon listener) {
         listeners.add(listener);
     }
@@ -216,10 +221,19 @@ public class WebApiCaller  {
         String url = "https://jsonplaceholder.typicode.com/todos/2";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, urlReel, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        try {
+                            JSONObject ar = response.getJSONObject("rates");
+                            Iterator<String> s = ar.keys();
+                            for (int i = 0; i < ar.length(); i++) {
+                                String tempKey = s.next();
+                                rates.add(new CurrencyRate(tempKey,ar.getDouble(tempKey),i));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         for (OnJsonRespon lis: listeners) {
                             lis.OnDataRecived(response.toString());
                         }

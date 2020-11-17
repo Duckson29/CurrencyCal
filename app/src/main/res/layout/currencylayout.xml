@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:backgroundTint="@color/teal_700">
 
         <TableLayout
             android:layout_width="match_parent"

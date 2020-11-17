@@ -5,8 +5,8 @@ package dk.ducksoft.currencycal.Models;
  */
 public class CurrencyCalculator {
 
-    public double calculatRate(){
+    public double calculatRate(double baseCurrency,double targetCurrency ){
 
-        return 0.5;
+        return baseCurrency * targetCurrency;
     }
 }

@@ -43,7 +43,7 @@ public class MainPresenter implements MainContract.Presenter, OnJsonRespon {
     public void handleConvertButtonClick(View view) {
 
         apiCaller.GetNewCurrencyRate(view.getContext());
-        calculator.calculatRate();
+//        calculator.calculatRate();
     }
 
     @Override
