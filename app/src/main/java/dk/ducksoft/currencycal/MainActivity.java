@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         /**
          * Apadater patten(MVP)
          * */
+
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(this);
@@ -38,5 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 }

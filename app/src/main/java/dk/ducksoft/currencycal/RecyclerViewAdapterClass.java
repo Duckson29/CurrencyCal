@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import dk.ducksoft.currencycal.Models.CurrencyRate;
 
-public class RecyclerViewAdapterClass extends RecyclerView.Adapter<RecyclerViewAdapterClass.RecyclerViewAdapterClassHolder> {
+public class RecyclerViewAdapterClass extends RecyclerView.Adapter<RecyclerViewAdapterClass.RecyclerViewAdapterClassHolder>{
     private ArrayList<CurrencyRate> mCurrencyRate;
     public static class RecyclerViewAdapterClassHolder extends RecyclerView.ViewHolder {
 
@@ -47,6 +47,7 @@ public class RecyclerViewAdapterClass extends RecyclerView.Adapter<RecyclerViewA
         holder.textView.setText(currencyItem.getCurrencyRateName());
 
         holder.imageView.setImageResource(currencyItem.getCurrencyFlag());
+
     }
 
     @Override

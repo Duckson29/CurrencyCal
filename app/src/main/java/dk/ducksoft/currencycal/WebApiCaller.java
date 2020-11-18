@@ -206,12 +206,24 @@ import dk.ducksoft.currencycal.Models.CurrencyRate;
 public class WebApiCaller  {
 
 
-    private ArrayList<OnJsonRespon> listeners = new ArrayList<OnJsonRespon>();
     private ArrayList<CurrencyRate> rates = new ArrayList<>();
+
+    /**
+     * This is the opserverable side of the patten.
+     * evey ohter thing that wants to opserve something needs to "Subscripe to this list".
+     * */
+    private ArrayList<OnJsonRespon> listeners = new ArrayList<>();
+
+    /**
+     * The opserver "subsrcipe" to this list to be "notifiy" of change.
+     * */
     public void addListener(OnJsonRespon listener) {
         listeners.add(listener);
     }
 
+    /**
+     * as a opserver need to be able to "Unscripe" from the list.
+     * */
     public void removeListener(OnJsonRespon listener) {
         listeners.remove(listener);
     }
@@ -220,6 +232,7 @@ public class WebApiCaller  {
         String urlReel = "http://data.fixer.io/api/latest?access_key=97c8d6aed90c59590194a29d532fd44c";
         String url = "https://jsonplaceholder.typicode.com/todos/2";
 
+        // the api call that gets all the current currency rates.
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, urlReel, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -227,6 +240,7 @@ public class WebApiCaller  {
                         try {
                             JSONObject ar = response.getJSONObject("rates");
                             Iterator<String> s = ar.keys();
+
                             for (int i = 0; i < ar.length(); i++) {
                                 String tempKey = s.next();
                                 rates.add(new CurrencyRate(tempKey,ar.getDouble(tempKey),i));
@@ -234,8 +248,8 @@ public class WebApiCaller  {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        for (OnJsonRespon lis: listeners) {
-                            lis.OnDataRecived(response.toString());
+                        for (OnJsonRespon listeners: listeners) {
+                            listeners.OnDataRecived(rates);
                         }
                     }
                 },new Response.ErrorListener() {
@@ -251,4 +265,6 @@ public class WebApiCaller  {
         Volley.newRequestQueue(activity).add(jsonObjectRequest);
 
     }
+
+
 }
